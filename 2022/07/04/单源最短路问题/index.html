@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="INF, Rhss">
-    <meta name="description" content="">
+    <meta name="keywords" content="经典单源最短路问题-Dijkstra算法, Rhss">
+    <meta name="description" content="Dijkstra算法
+使用场合:对任意给出的图G(V,E)和起点S与终点T，求解S到T点的最短路径问题
+
+三个步骤
+设置集合S存放已被访问过的顶点，然后执行n次下面的俩个步骤(n为顶点数)
+每次从集合V-S中选择与起点S的最短距离最小的一个">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +24,7 @@
 
     
 
-    <title>INF | Rhss</title>
+    <title>经典单源最短路问题-Dijkstra算法 | Rhss</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +314,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">INF</h1>
+                    <h1 class="description center-align post-title">经典单源最短路问题-Dijkstra算法</h1>
                 </div>
             </div>
         </div>
@@ -458,12 +463,36 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h1><blockquote>
+<p>使用场合:对任意给出的图G(V,E)和起点S与终点T，求解S到T点的最短路径问题</p>
+</blockquote>
+<h2 id="三个步骤"><a href="#三个步骤" class="headerlink" title="三个步骤"></a>三个步骤</h2><ol>
+<li>设置集合S存放已被访问过的顶点，然后执行n次下面的俩个步骤(n为顶点数)</li>
+<li>每次从集合V-S中选择与起点S的最短距离最小的一个顶点(记作u),访问并加入集合S</li>
+<li>之后，令顶点u为中介点，优化起点s与所有从u能到达的顶点v之间的最短距离</li>
+</ol>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><pre class="line-numbers language-none"><code class="language-none">Dijkstra(G,d[],s)&#123;
+    初始化;
+    for(循环n次)&#123;
+        u &#x3D; 使d[u] 最小的还未被访问的顶点的标号;
+        记为u已被访问;
+        for(从u出发能到达的所有顶点v)&#123;
+            if(v未被访问&amp;&amp;以u为中介点能使s到v的最短距离d[v]更优)&#123;
+                更新d[v];
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805342720868352/problems/994805523835109376">Emergency</a></p>
+
                 
             </div>
             <hr/>
@@ -489,7 +518,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/07/04/INF/">http://example.com/2022/07/04/INF/</a>
+                    <a href="http://example.com/2022/07/04/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/">http://example.com/2022/07/04/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -703,13 +732,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/07/04/INF/">
+                <a href="/2022/07/04/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="INF">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="经典单源最短路问题-Dijkstra算法">
                         
-                        <span class="card-title">INF</span>
+                        <span class="card-title">经典单源最短路问题-Dijkstra算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -741,13 +770,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/03/test/">
+                <a href="/2022/06/19/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="firstText">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
                         
-                        <span class="card-title">firstText</span>
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -758,7 +787,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-19
                             </span>
                         <span class="publish-author">
                             
@@ -819,6 +848,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
