@@ -134,6 +134,58 @@
     
   </li>
   
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>Medias</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Musics</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Movies</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Books</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Galleries</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -232,6 +284,61 @@
 			
 			友情链接
 		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			Medias
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/musics " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Musics</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/movies " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Movies</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/books " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Books</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Galleries</span>
+                  </a>
+                </li>
+              
+            </ul>
           
         </li>
         
@@ -492,7 +599,51 @@
     &#125;
 &#125;
 ---<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>但是大多数时候题目肯定不会考的这么裸,更多的时候会出现这样一种情况，即最短路径的条数不止一条，或者给题目增加一个第二标尺，例如点权，第二边权等等，这三种情况都很容易解决</strong></p>
+<p><strong>但是大多数时候题目肯定不会考的这么裸,更多的时候会出现这样一种情况，即最短路径的条数不止一条，或者给题目增加一个第二标尺，例如点权，第二边权等等，这三种情况都很容易解决,,针对这三种情况，都只要增加一个数组就可以解决，下面给出这三种解法</strong></p>
+<ol>
+<li>新增边权,新建一个代表第二边权的数组<pre class="line-numbers language-none"><code class="language-none">for(int v &#x3D; 0;v&lt;n;++v)&#123;
+	&#x2F;&#x2F;如果v未被访问&amp;&amp;u能到达v
+	if(vis[v]&#x3D;&#x3D;false&amp;&amp;G[u][v]!&#x3D;INF)&#123;&#x2F;&#x2F;INF是无穷大
+		if(d[U]+G[u][v]&lt;d[v])&#123;
+			d[v]&#x3D;d[U]+G[u][v];
+			c[v]&#x3D;c[u]+cost[u][v];
+		&#125;
+		else&#123;
+			if(d[U]+G[u][v]&#x3D;&#x3D;d[v])&#123;
+				c[v]&#x3D;c[u]+cost[u][v];&#x2F;&#x2F;最短距离相同时更新第二边权
+			&#125;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>新增点权,新建一个代表新增点权的数组<pre class="line-numbers language-none"><code class="language-none">for(int v &#x3D; 0;v&lt;n;++v)&#123;
+	&#x2F;&#x2F;如果v未被访问&amp;&amp;u能到达v
+	if(vis[v]&#x3D;&#x3D;false&amp;&amp;G[u][v]!&#x3D;INF)&#123;&#x2F;&#x2F;INF是无穷大
+		if(d[U]+G[u][v]&lt;d[v])&#123;
+			d[v]&#x3D;d[U]+G[u][v];
+			w[v]&#x3D;w[u]+weight[u][v];
+		&#125;
+		else&#123;
+			if(d[U]+G[u][v]&#x3D;&#x3D;d[v])&#123;
+				w[v]&#x3D;w[u]+weight[u][v];&#x2F;&#x2F;最短距离相同时更新点权
+			&#125;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>求最短路径条数,新建一个代表起点到某点最短路径条数的数组<pre class="line-numbers language-none"><code class="language-none">for(int v &#x3D; 0;v&lt;n;++v)&#123;
+	&#x2F;&#x2F;如果v未被访问&amp;&amp;u能到达v
+	if(vis[v]&#x3D;&#x3D;false&amp;&amp;G[u][v]!&#x3D;INF)&#123;&#x2F;&#x2F;INF是无穷大
+		if(d[U]+G[u][v]&lt;d[v])&#123;
+			d[v]&#x3D;d[U]+G[u][v];
+			num[v]&#x3D;num[u];
+		&#125;
+		else&#123;
+			if(d[U]+G[u][v]&#x3D;&#x3D;d[v])&#123;
+				num[v]+&#x3D;num[u];&#x2F;&#x2F;最短距离相同时累加num
+			&#125;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
 <h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805342720868352/problems/994805523835109376">Emergency</a><br><img src="/./../img/Emergency.png" alt="如图"></p>
 <h4 id="中文释义"><a href="#中文释义" class="headerlink" title="中文释义"></a>中文释义</h4><p>作为一个城市的紧急救援队长，你会得到一张你国家的特别地图。这张地图显示了几个由一些道路连接的分散城市。地图上标出了每个城市救援队的数量以及任何两个城市之间每条道路的长度。当有来自其他城市的紧急电话打给你时，你的工作是带领你的人尽快赶到那里，同时，在路上尽可能多地召集人手。</p>
 <p>输入格式:</p>
