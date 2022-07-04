@@ -490,8 +490,102 @@
             &#125;
         &#125;
     &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805342720868352/problems/994805523835109376">Emergency</a></p>
+&#125;
+---<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>但是大多数时候题目肯定不会考的这么裸,更多的时候会出现这样一种情况，即最短路径的条数不止一条，或者给题目增加一个第二标尺，例如点权，第二边权等等，这三种情况都很容易解决</strong></p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805342720868352/problems/994805523835109376">Emergency</a><br><img src="/./../img/Emergency.png" alt="如图"></p>
+<h4 id="中文释义"><a href="#中文释义" class="headerlink" title="中文释义"></a>中文释义</h4><p>作为一个城市的紧急救援队长，你会得到一张你国家的特别地图。这张地图显示了几个由一些道路连接的分散城市。地图上标出了每个城市救援队的数量以及任何两个城市之间每条道路的长度。当有来自其他城市的紧急电话打给你时，你的工作是带领你的人尽快赶到那里，同时，在路上尽可能多地召集人手。</p>
+<p>输入格式:</p>
+<p>每个输入文件包含一个测试用例。对于每个测试用例，第一行包含4个正整数：N(≤500）-城市数量（城市编号从0到N−1） ，M-道路数量，C 1和C 2-您当前所在的城市和您必须保存的城市。下一行包含N个整数，其中第i个整数是第i个城市中救援队的数量。接下来是M条线，每条线用三个整数c1、c2和L描述一条道路，这三个整数分别是由一条道路连接的一对城市和该道路的长度。保证从C1到C2至少存在一条路径</p>
+<p>输出格式:</p>
+<p>对于每个测试用例，在一行中打印两个数字：C1和C2之间不同最短路径的数量，以及您可能收集的救援团队的最大数量。一行中的所有数字必须用一个空格隔开，并且在一行的末尾不允许有额外的空格。</p>
+<h4 id="最后-上代码"><a href="#最后-上代码" class="headerlink" title="最后,上代码"></a>最后,上代码</h4><pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;
+#define INF 10000
+#define MAXN 1010
+using namespace std;
+struct node&#123;
+	int id;
+	int edge_power;
+&#125;;
+typedef node PLL;
+vector&lt;PLL&gt; vi[MAXN];
+&#x2F;&#x2F;点，边，起点，终点
+int n,m,s,k;
+&#x2F;&#x2F;录起点到对应点的最短距离
+int d[MAXN];
+&#x2F;&#x2F;记录各点权
+int point_power[MAXN];
+&#x2F;&#x2F;记录起点到对应点的最大点权数目
+int point_power_sum[MAXN];
+&#x2F;&#x2F;记录各点是否访问过
+bool vis[MAXN]&#x3D;&#123;false&#125;;
+&#x2F;&#x2F;记录起点到对应点的最短路径数目
+int num_road[MAXN];
+void Dijkstra(int s)&#123;
+	fill(d,d+MAXN,INF);
+	fill(num_road,num_road+MAXN,0);
+	fill(point_power_sum,point_power_sum+MAXN,0);
+	fill(vis,vis+MAXN,false);
+	point_power_sum[s]&#x3D;point_power[s];
+	num_road[s]&#x3D;1;
+	d[s]&#x3D;0;
+	for(int i&#x3D;0;i&lt;n;++i)&#123;
+		int u &#x3D; -1,MIN&#x3D;INF;
+		for(int j &#x3D; 0;j&lt;n;++j)&#123;
+			if(vis[j]&#x3D;&#x3D;false&amp;&amp;d[j]&lt;MIN)&#123;
+				u&#x3D;j;
+				MIN&#x3D;d[j];
+			&#125;
+		&#125;
+		&#x2F;&#x2F;没找到
+		if(u&#x3D;&#x3D;-1)&#123;
+			return ;
+		&#125;
+		vis[u]&#x3D;true;
+		for(int i &#x3D; 0;i&lt;vi[u].size();++i)&#123;
+			int v &#x3D; vi[u][i].id; 
+			if(vis[v]&#x3D;&#x3D;false&amp;&amp;d[u]+vi[u][i].edge_power&lt;d[v])&#123;
+				d[v]&#x3D;d[u]+vi[u][i].edge_power;
+				num_road[v]&#x3D;num_road[u];
+				point_power_sum[v]&#x3D;point_power[v]+point_power_sum[u];
+			&#125;
+			else&#123;
+				if(d[u]+vi[u][i].edge_power&#x3D;&#x3D;d[v])&#123;		
+					if(point_power_sum[v]&lt;point_power[v]+point_power_sum[u])&#123;
+						point_power_sum[v]&#x3D;point_power[v]+point_power_sum[u];										
+					&#125;												
+					num_road[v]+&#x3D;num_road[u];
+				&#125;			
+			&#125;
+		&#125;
+	&#125;
+&#125;
+int main()&#123;
+	cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;k;
+		&#x2F;&#x2F;cout&lt;&lt;num_road[k]&lt;&lt;&quot; &quot;&lt;&lt;point_power_sum[k];	
+	for(int i &#x3D; 0;i&lt;n;++i)&#123;
+		&#x2F;&#x2F;输入点权
+		cin&gt;&gt;point_power[i];
+	&#125;
+	for(int i &#x3D; 0;i&lt;m;++i)&#123;
+		int x,y,edge_power;
+		cin&gt;&gt;x&gt;&gt;y&gt;&gt;edge_power;
+		&#x2F;&#x2F;初始化点的属性
+		PLL pi&#123;x,edge_power&#125;;
+		PLL pt&#123;y,edge_power&#125;;
+		&#x2F;&#x2F;设置双向可达
+		vi[x].push_back(pt);
+		vi[y].push_back(pi);
+	&#125;
+	Dijkstra(s);
+	cout&lt;&lt;num_road[k]&lt;&lt;&quot; &quot;&lt;&lt;point_power_sum[k];	
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
 
                 
             </div>
