@@ -540,9 +540,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Algorithm/">
+                                <span class="chip bg-color">Algorithm</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -732,12 +736,88 @@ int main()&#123;
 	cout&lt;&lt;num_road[k]&lt;&lt;&quot; &quot;&lt;&lt;point_power_sum[k];	
 	return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-
+<p><strong>你以为到这里就结束了吗，细心的读者应当注意到，上面这三种情况都是以路径上的边权或点权之 “和” 为第二标尺的，事实上也可能出现一些逻辑更为复杂的计算边权或点权的方式，此时按上面的Dijkstra算法就未必能得出正确的结果(原因是不一定满足最优子结构)，或者即使能算出，其逻辑也极其复杂，很容易写错，下面给出一种更通用、又模板化的解决此类问题的方式——Dijkstra+DFS。</strong></p>
+<p>先思考一个问题，如果我们想要获得最优路径，应该怎么做？实际上很简单，只需要设置一个pre数组，当以v为结点可优化最短距离时，设置v的前驱结点为u即可,然后不断回溯得到当前结点的前驱结点，下面一样给出通俗易懂的递归写法</p>
+<pre class="line-numbers language-none"><code class="language-none">if(vis[v]&#x3D;&#x3D;false&amp;&amp;d[u]+vi[u][i].edge_power&lt;d[v])&#123; 
+	d[v]&#x3D;d[u]+vi[u][i].edge_power;  
+	pre[v]&#x3D;u;&#x2F;&#x2F;设置v的前驱结点为u
+&#125;
+&#x2F;&#x2F;递归回溯
+void DFS(int s,int t)&#123;&#x2F;&#x2F;s是起点，t是终点
+	if(v&#x3D;&#x3D;s)&#123;
+		cout&lt;&lt;s;
+		return ;
+	&#125;
+	DFS(s,pre[t]);
+	cout&lt;&lt;t;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>事实上，可以采取先找出所有最短路径的，后找出第二标尺最优的方法，下面给出步骤</strong><br><strong>1. 设置一个vector&lt; int&gt; pre[MAXN];记录每一个结点的所有前驱结点</strong><br><strong>2. 考虑更新d[v]过程中pre数组的变化，下面直接给出代码</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">if(d[u]+G[u][v]&lt;d[v])&#123;
+	d[v]&#x3D;d[u]+G[u][v];
+	pre[v].clean();&#x2F;&#x2F;找到一条新路径，清除原先所有前驱结点
+	pre[v].push_back(u);
+&#125;
+else&#123;
+	if(d[u]+G[u][v]&#x3D;d[v])&#123;
+		pre[v].push_back(u);&#x2F;&#x2F;找到一条相同距离的路径，直接添加即可
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>以下给出模板代码，特别注意:下面的代码可以全部不修改直接默写上去(当然能理解最好)</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">vector&lt;int&gt; pre[MAXN];
+void Dijkstra(int s)&#123;
+	for(int i&#x3D;0;i&lt;n;++i)&#123;
+		int u &#x3D; -1,MIN&#x3D;INF;&#x2F;&#x2F;找到最小的d[u]
+		for(int j &#x3D; 0;j&lt;n;++j)&#123;
+			if(vis[j]&#x3D;&#x3D;false&amp;&amp;d[j]&lt;MIN)&#123;
+				u&#x3D;j;
+				MIN&#x3D;d[j];
+			&#125;
+		&#125;
+		&#x2F;&#x2F;没找到
+		if(u&#x3D;&#x3D;-1)&#123;
+			return ;
+		&#125;
+		vis[u]&#x3D;true;
+		for(int i &#x3D; 0;i&lt;vi[u].size();++i)&#123;
+			int v &#x3D; vi[u][i].id; 
+			if(vis[v]&#x3D;&#x3D;false&amp;&amp;d[u]+G[u][v]&lt;INF)&#123;
+				d[v]&#x3D;d[u]+G[u][v];
+				pre[v].clear();
+				pre[v].push_back(u);
+			&#125;
+			else&#123;
+				if(d[u]+vi[u][i].edge_power&#x3D;&#x3D;d[v])&#123;
+					pre[v].push_back(u);
+				&#125;			
+			&#125;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>已经求出所有最短路径了，那么怎么筛选出第二标尺最优的路径呢？读者应该还记得，在之前的写法中曾使用一个递归函数来寻找最短路径，此处的做法和之前相似，由于每个结点可以存在多个前驱结点，回溯的过程中就会形成一棵递归树，显然，对这棵树进行遍历时，每当到达叶子结点，就会产生一条完整的路径(想一想之前的写法是什么样的树————实际上就是一条链),因此，每得到一条完整路径，就可以对这条路径计算其第二标尺的值，如果比当前最优值更优，就更新最优值，并覆盖当前的最优路径，当所有最短路径都遍历之后，就可以得到最优第二标尺与最优最短路径。</strong></p>
+<p><strong>首先，根据上面的分析，必须要有的是:</strong><br><strong>1. 作为全局变量的第二标尺最优值optValue</strong><br><strong>2. 记录最优路径的数组path(用vector存储)</strong><br><strong>3. 临时记录DFS遍历到叶子结点时的路径tempPath(也使用vector存储)</strong><br><strong>由此就可以给出下面的代码</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">int optvalue;
+vector&lt;int&gt; pre[MAXN];
+vector&lt;int&gt; path,tempPath;
+void DFS(int v)&#123;
+	&#x2F;&#x2F;到达叶子结点
+	if(v&#x3D;&#x3D;s)&#123;
+		tempPath.push_back(v);
+		int value;
+		计算tempPath上的value值
+		if(value优于optvalue)&#123;
+			optvalue &#x3D; value;
+			path &#x3D; tempPath;
+		&#125;
+		tempPath.pop_back();
+		return ;
+	&#125;
+	&#x2F;&#x2F;递归式
+	tempPath.push_back(v);
+	for(int i &#x3D; 0;i&lt;pre[v].size();++i)&#123;
+		DFS(pre[v][i]);
+	&#125;
+	tempPath.pop_back();&#x2F;&#x2F;遍历完所有前驱结点，将当前结点v清除
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -800,7 +880,11 @@ int main()&#123;
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Algorithm/">
+                                    <span class="chip bg-color">Algorithm</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1005,6 +1089,14 @@ int main()&#123;
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Algorithm/">
+                        <span class="chip bg-color">Algorithm</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
