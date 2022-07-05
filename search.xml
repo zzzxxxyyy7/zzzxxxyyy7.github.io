@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>全源最短路径问题-Floyd算法</title>
+      <link href="/2022/07/05/Floyd/"/>
+      <url>/2022/07/05/Floyd/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p><strong>Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源最短路问题</strong></p></blockquote><h2 id="算法详解"><a href="#算法详解" class="headerlink" title="算法详解"></a>算法详解</h2><p>Floyd算法基于这样一个事实:如果存在顶点K，使得以K作为中介点时顶点i和顶点j的当前最短距离缩短,则使用顶点k作为i和j的中介点,即当dis[i][j]+dis[k][j]&lt;dis[i][j]时,令dis[i][j]&#x3D;dis[i][j]+dis[k][j]。下面给出Floyd算法的伪代码。</p><h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><pre class="line-numbers language-none"><code class="language-none">枚举顶点k    以顶点k作为中介点,枚举所有顶点i和j        如果dis[i][j]+dis[k][j]&lt;dis[i][j]成立            赋值dis[i][j]&#x3D;dis[i][j]+dis[k][j]&#x2F;&#x2F;顶点i，j，k均属于顶点n范围内            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>可以看到,Floyd算法的思维异常简洁，下面给出一种用例</strong></p><h3 id="实解"><a href="#实解" class="headerlink" title="实解"></a>实解</h3><p><strong>测试用例,以有向图为例</strong></p><pre class="line-numbers language-none"><code class="language-none">6 80 1 10 3 40 4 41 3 22 5 13 2 23 4 34 5 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;#define INF 10000#define MAXN 1010using namespace std;int n, m;int dis[MAXN][MAXN];void Flody() &#123;for (int k &#x3D; 0; k &lt; n; ++k) &#123;for (int i &#x3D; 0; i &lt; n; ++i) &#123;for (int j &#x3D; 0; j &lt; n; ++j) &#123;if (dis[i][k] !&#x3D; INF &amp;&amp; dis[k][j] !&#x3D; INF &amp;&amp; dis[i][k] + dis[k][j] &lt; dis[i][j]) &#123;dis[i][j] &#x3D; dis[i][k] + dis[k][j];&#125;&#125;&#125;&#125;&#125;int main() &#123;int u, v, w;fill(dis[0], dis[0] + MAXN * MAXN, INF);cin &gt;&gt; n &gt;&gt; m;for (int i &#x3D; 0; i &lt; n; ++i) &#123;dis[i][i] &#x3D; 0;&#125;for (int i &#x3D; 0; i &lt; m; ++i) &#123;cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;dis[u][v] &#x3D; w; &#x2F;&#x2F;以有向图为例进行输入&#125;Flody();for (int i &#x3D; 0; i &lt; n; ++i) &#123;for (int j &#x3D; 0; j &lt; n; ++j) &#123;if (dis[i][j] &gt;&#x3D; INF) &#123;cout &lt;&lt; &quot;X &quot;;&#x2F;&#x2F;X表示俩点无法互相抵达&#125; else &#123;cout &lt;&lt; dis[i][j] &lt;&lt; &quot; &quot;;&#125;&#125;cout &lt;&lt; endl;&#125;return 0;&#125;            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>这里，给读者进行一个科普:如果一开始把图中所有点是否可达存成0-1矩阵,然后另外一个起始矩阵只有源点标一,两个矩阵乘一次后，每个点的数量就表示，从源点移动一步，到每个点的方案数,然后矩阵乘法又可以用快速幂加速,这就是我们耳熟能详的矩阵快速幂,本章节不做过多叙述，有兴趣的读者可以读阅本站&lt;矩阵快速幂&gt;章节了解相关知识或者自行查阅资料</strong></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>特殊单源最短路问题-Bellman-ford算法和SPFA算法</title>
       <link href="/2022/07/05/Bellman-Ford%20and%20SPFA/"/>
       <url>/2022/07/05/Bellman-Ford%20and%20SPFA/</url>
