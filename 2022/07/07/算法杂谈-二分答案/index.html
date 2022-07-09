@@ -4,11 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="算法杂谈-Floyd算法, Rhss">
-    <meta name="description" content="
-Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源最短路问题
-
-算法详解Floyd算法基于这样一个事实:如果存在顶点K，使得以K作为中介点时顶点i和顶点j的当前最短距离缩短,则使用顶点k作为i和j的中介点,即当dis[i][j">
+    <meta name="keywords" content="算法杂谈-二分答案, Rhss">
+    <meta name="description" content="下面我用一段长话提出二分答案的概念在有些题目中，答案是有一个确定的范围限制的，我们就可以考虑一种另外的方法去解决——枚举答案，并去验证答案是否可行。实际上，枚举答案有时候也会超时。这就好比说你要从一本英汉词典上查一个单词，你从头到尾一页一页">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +19,7 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
 
     
 
-    <title>算法杂谈-Floyd算法 | Rhss</title>
+    <title>算法杂谈-二分答案 | Rhss</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -419,12 +416,12 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">算法杂谈-Floyd算法</h1>
+                    <h1 class="description center-align post-title">算法杂谈-二分答案</h1>
                 </div>
             </div>
         </div>
@@ -556,7 +553,7 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-05
+                    2022-07-07
                 </div>
                 
 
@@ -580,76 +577,140 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p><strong>Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源最短路问题</strong></p>
-</blockquote>
-<h2 id="算法详解"><a href="#算法详解" class="headerlink" title="算法详解"></a>算法详解</h2><p>Floyd算法基于这样一个事实:如果存在顶点K，使得以K作为中介点时顶点i和顶点j的当前最短距离缩短,则使用顶点k作为i和j的中介点,即当dis[i][j]+dis[k][j]&lt;dis[i][j]时,令dis[i][j]&#x3D;dis[i][j]+dis[k][j]。下面给出Floyd算法的伪代码。</p>
-<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><pre class="line-numbers language-none"><code class="language-none">枚举顶点k
-    以顶点k作为中介点,枚举所有顶点i和j
-        如果dis[i][j]+dis[k][j]&lt;dis[i][j]成立
-            赋值dis[i][j]&#x3D;dis[i][j]+dis[k][j]
-&#x2F;&#x2F;顶点i，j，k均属于顶点n范围内            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>可以看到,Floyd算法的思维异常简洁，下面给出一种用例</strong></p>
-<h3 id="实解"><a href="#实解" class="headerlink" title="实解"></a>实解</h3><p><strong>测试用例,以有向图为例</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">6 8
-0 1 1
-0 3 4
-0 4 4
-1 3 2
-2 5 1
-3 2 2
-3 4 3
-4 5 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+                <p><strong>下面我用一段长话提出二分答案的概念</strong><br>在有些题目中，答案是有一个确定的范围限制的，我们就可以考虑一种另外的方法去解决——枚举答案，并去验证答案是否可行。实际上，枚举答案有时候也会超时。这就好比说你要从一本英汉词典上查一个单词，你从头到尾一页一页的翻着找，这样找可以保证一定能找到，但是最坏情况你要把整本词典都翻一遍，那就麻烦了。有什么改进的方法吗？当然有。考虑把这个词典从中间分开，看一下中间那一页的主要单词都是啥，然后去判断我要找的单词应该在左半部分还是右半部分，再去那一部分考虑怎么找就好了。同样的，在另一部分也是要进行划分并且判断的操作。这样一直进行下去，便能很快的找到答案，而且根本不需要翻过整个词典来。可以证明，如果一页一页的找，最多要找n次，但是用这个方法，最多找<strong>floor(log2n)<strong>次。我们把这个方法叫做“</strong>二分答案</strong>”。顾名思义，它用二分的方法枚举答案，并且枚举时判断这个答案是否可行。但是，二分并不是在所有情况下都是可用的，使用二分需要满足两个条件。<strong>一个是有界，一个是单调</strong>。二分答案应该是在一个单调闭区间上进行的。也就是说，二分答案最后得到的答案应该是一个确定值，而不是像搜索那样会出现多解。二分一般用来解决最优解问题。刚才我们说单调性，那么这个单调性应该体现在哪里呢？可以这样想，在一个区间上，有很多数，这些数可能是我们这些问题的解，换句话说，这里有很多不合法的解，也有很多合法的解。我们只考虑合法解，并称之为<strong>可行解</strong>。考虑所有可行解，我们肯定是要从这些可行解中找到一个最好的作为我们的答案， 这个答案我们称之为<strong>最优解</strong>。<strong>最优解一定可行，但可行解不一定最优</strong>。我们假设整个序列具有单调性，且一个数x为可行解，那么一般的，所有的x’(x’&lt;x)都是可行解。并且，如果有一个数y是非法解，那么一般的，所有的y’(y’&gt;y)都是非法解。<br><strong>二分答案主要分为俩个步骤，下面给出其伪代码</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">bool check(传入一个测试答案)&#123;
+    定义一个条件变量ans
+    循环求分割段数[随机应变]
+    判断是否符合要求
+&#125;
+(main函数内部):
+int ans &#x3D; -1;&#x2F;&#x2F;假设答案
+int pleft&#x3D;0,pright&#x3D;max_len;&#x2F;&#x2F;获取答案范围
+while(pleft &lt;&#x3D; pright)&#123;
+    int mid &#x3D; (pright - pleft) &#x2F; 2 + pleft;
+    if (check(mid)) &#123;
+        ans &#x3D; mid;
+        pleft &#x3D; mid + 1;
+    &#125; else &#123;
+        pright &#x3D; mid - 1;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>因为我本人对二分答案的学习是从刷题开始，下面给出几道例题</strong><br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2440">P2440 木材加工</a><br><img src="/./../img/P2440%20%E6%9C%A8%E6%9D%90%E5%8A%A0%E5%B7%A5.png" alt="非常经典的一道二分答案题"></p>
 <pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;
-#define INF 10000
-#define MAXN 1010
+#define N 100005
+typedef long long ll;
 using namespace std;
+ll a[N];
 int n, m;
-int dis[MAXN][MAXN];
-void Flody() &#123;
-	for (int k &#x3D; 0; k &lt; n; ++k) &#123;
-		for (int i &#x3D; 0; i &lt; n; ++i) &#123;
-			for (int j &#x3D; 0; j &lt; n; ++j) &#123;
-				if (dis[i][k] !&#x3D; INF &amp;&amp; dis[k][j] !&#x3D; INF &amp;&amp; dis[i][k] + dis[k][j] &lt; dis[i][j]) &#123;
-					dis[i][j] &#x3D; dis[i][k] + dis[k][j];
-				&#125;
-			&#125;
-		&#125;
+bool check(int mid) &#123;
+	ll ans &#x3D; 0;
+	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
+		ans +&#x3D; a[i] &#x2F; mid;
 	&#125;
+	return ans &gt;&#x3D; m;
 &#125;
 int main() &#123;
-	int u, v, w;
-	fill(dis[0], dis[0] + MAXN * MAXN, INF);
 	cin &gt;&gt; n &gt;&gt; m;
+	int max_len &#x3D; 0;
 	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
-		dis[i][i] &#x3D; 0;
-	&#125;
-	for (int i &#x3D; 0; i &lt; m; ++i) &#123;
-		cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
-		dis[u][v] &#x3D; w; &#x2F;&#x2F;以有向图为例进行输入
-	&#125;
-	Flody();
-	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
-		for (int j &#x3D; 0; j &lt; n; ++j) &#123;
-			if (dis[i][j] &gt;&#x3D; INF) &#123;
-				cout &lt;&lt; &quot;X &quot;;&#x2F;&#x2F;X表示俩点无法互相抵达
-			&#125; else &#123;
-				cout &lt;&lt; dis[i][j] &lt;&lt; &quot; &quot;;
-			&#125;
+		cin &gt;&gt; a[i];
+		if (a[i] &gt; max_len) &#123;
+			max_len &#x3D; a[i];
 		&#125;
-		cout &lt;&lt; endl;
 	&#125;
+	int pleft &#x3D; 1, pright &#x3D; max_len;
+	int ans &#x3D; 0;
+	while (pleft &lt;&#x3D; pright) &#123;
+		int mid &#x3D; (pright - pleft) &#x2F; 2 + pleft;
+		if (check(mid)) &#123;
+			ans &#x3D; mid;
+			pleft &#x3D; mid + 1;
+		&#125; else &#123;
+			pright &#x3D; mid - 1;
+		&#125;
+	&#125;
+	cout &lt;&lt; ans;
 	return 0;
-&#125;            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>期待输出</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">0 1 5 3 4 6
-X 0 4 2 5 5
-X X 0 X X 1
-X X 2 0 3 3
-X X X X 0 3
-X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>这里，给读者进行一个科普:如果一开始把图中所有点是否可达存成0-1矩阵,然后另外一个起始矩阵只有源点标一,两个矩阵乘一次后，每个点的数量就表示，从源点移动一步，到每个点的方案数,然后矩阵乘法又可以用快速幂加速,这就是我们耳熟能详的矩阵快速幂,本章节不做过多叙述，有兴趣的读者可以读阅本站&lt;矩阵快速幂&gt;章节了解相关知识或者自行查阅资料</strong></p>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1577">P1577 切绳子</a><br><img src="/./../img/P1577%20%E5%88%87%E7%BB%B3%E5%AD%90.png" alt="如图"></p>
+<pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;
+#define MXN 1000000
+using namespace std;
+typedef long long ll;
+ll a[MXN];
+ll n, k;
+bool check(ll mid) &#123;
+	ll ans &#x3D; 0;
+	for (ll i &#x3D; 0; i &lt; n; ++i) &#123;
+		ans +&#x3D; a[i] &#x2F; mid;
+	&#125;
+	return ans &gt;&#x3D; k;
+&#125;
+int main() &#123;
+	cin &gt;&gt; n &gt;&gt; k;
+	ll max_len &#x3D; 0;
+	for (ll i &#x3D; 0; i &lt; n; ++i) &#123;
+		double x;
+		cin &gt;&gt; x;
+		a[i] &#x3D; x * 100;
+		if (a[i] &gt; max_len) &#123;
+			max_len &#x3D; a[i];
+		&#125;
+	&#125;
+	ll ans &#x3D; -1;
+	ll pleft &#x3D; 0, pright &#x3D; max_len;
+	while (pleft &lt;&#x3D; pright) &#123;
+		ll mid &#x3D; (pright - pleft) &#x2F; 2 + pleft;
+		if (check(mid)) &#123;
+			ans &#x3D; mid;
+			pleft &#x3D; mid + 1;
+		&#125; else &#123;
+			pright &#x3D; mid - 1;
+		&#125;
+	&#125;
+	double res &#x3D; (double)ans;
+	printf(&quot;%.2lf&quot;, res &#x2F; 100.0);
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2678">P2678 [NOIP2015 提高组] 跳石头</a><br><img src="/./../img/P2678%20%5BNOIP2015%20%E6%8F%90%E9%AB%98%E7%BB%84%5D%20%E8%B7%B3%E7%9F%B3%E5%A4%B4.png" alt="如图"></p>
+<pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;
+#define MXN 100000
+using namespace std;
+typedef long long ll;
+int l, n, m;
+ll a[MXN];
+bool check(int mid) &#123;
+	int ans &#x3D; 0;
+	int last &#x3D; 0;
+	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
+		if(a[i]-last&lt;mid)&#123;
+			ans++;	
+			continue;				
+		&#125;
+		last&#x3D;a[i];
+	&#125;
+	return ans &lt;&#x3D; m;
+&#125;
+int main() &#123;
+	cin &gt;&gt; l &gt;&gt; n &gt;&gt; m;
+	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
+		cin &gt;&gt; a[i];
+	&#125;
+	int ans &#x3D; -1;
+	int pleft &#x3D; 0, pright &#x3D; l;
+	while (pleft &lt;&#x3D; pright) &#123;
+		int mid &#x3D; pleft + (pright - pleft) &#x2F; 2;
+		if (check(mid)) &#123;
+			ans &#x3D; mid;
+			pleft &#x3D; mid + 1;
+		&#125; else &#123;
+			pright &#x3D; mid - 1;
+		&#125;
+	&#125;
+	cout &lt;&lt; ans;
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -676,7 +737,7 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/07/05/Floyd/">http://example.com/2022/07/05/Floyd/</a>
+                    <a href="http://example.com/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">http://example.com/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -893,13 +954,13 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">
+                <a href="/2022/07/07/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="算法杂谈-二分答案">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="经验分享-洛谷刷题日记">
                         
-                        <span class="card-title">算法杂谈-二分答案</span>
+                        <span class="card-title">经验分享-洛谷刷题日记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -923,8 +984,8 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Algorithm/">
-                        <span class="chip bg-color">Algorithm</span>
+                    <a href="/tags/Practise/">
+                        <span class="chip bg-color">Practise</span>
                     </a>
                     
                 </div>
@@ -938,13 +999,13 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/05/Bellman-Ford%20and%20SPFA/">
+                <a href="/2022/07/05/Floyd/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="算法杂谈-Bellman-ford算法和SPFA算法">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="算法杂谈-Floyd算法">
                         
-                        <span class="card-title">算法杂谈-Bellman-ford算法和SPFA算法</span>
+                        <span class="card-title">算法杂谈-Floyd算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

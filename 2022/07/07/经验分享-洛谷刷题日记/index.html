@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="算法杂谈-Floyd算法, Rhss">
-    <meta name="description" content="
-Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源最短路问题
-
-算法详解Floyd算法基于这样一个事实:如果存在顶点K，使得以K作为中介点时顶点i和顶点j的当前最短距离缩短,则使用顶点k作为i和j的中介点,即当dis[i][j">
+    <meta name="keywords" content="经验分享-洛谷刷题日记, Rhss">
+    <meta name="description" content="P1003 [NOIP2011 提高组] 铺地毯脑子短路了，倒着检索就行了，第一次写的时候还用了map+pair。。。。
+#include &amp;lt;bits&amp;#x2F;stdc++.h&amp;gt;
+#define INF 10005
+using">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +22,7 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
 
     
 
-    <title>算法杂谈-Floyd算法 | Rhss</title>
+    <title>经验分享-洛谷刷题日记 | Rhss</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -419,12 +419,12 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">算法杂谈-Floyd算法</h1>
+                    <h1 class="description center-align post-title">经验分享-洛谷刷题日记</h1>
                 </div>
             </div>
         </div>
@@ -540,8 +540,8 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Algorithm/">
-                                <span class="chip bg-color">Algorithm</span>
+                            <a href="/tags/Practise/">
+                                <span class="chip bg-color">Practise</span>
                             </a>
                         
                     </div>
@@ -556,7 +556,7 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-05
+                    2022-07-07
                 </div>
                 
 
@@ -580,77 +580,111 @@ Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p><strong>Floyd算法(读者可以将其读作”弗洛伊德算法”)用来解决全源最短路问题</strong></p>
-</blockquote>
-<h2 id="算法详解"><a href="#算法详解" class="headerlink" title="算法详解"></a>算法详解</h2><p>Floyd算法基于这样一个事实:如果存在顶点K，使得以K作为中介点时顶点i和顶点j的当前最短距离缩短,则使用顶点k作为i和j的中介点,即当dis[i][j]+dis[k][j]&lt;dis[i][j]时,令dis[i][j]&#x3D;dis[i][j]+dis[k][j]。下面给出Floyd算法的伪代码。</p>
-<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><pre class="line-numbers language-none"><code class="language-none">枚举顶点k
-    以顶点k作为中介点,枚举所有顶点i和j
-        如果dis[i][j]+dis[k][j]&lt;dis[i][j]成立
-            赋值dis[i][j]&#x3D;dis[i][j]+dis[k][j]
-&#x2F;&#x2F;顶点i，j，k均属于顶点n范围内            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>可以看到,Floyd算法的思维异常简洁，下面给出一种用例</strong></p>
-<h3 id="实解"><a href="#实解" class="headerlink" title="实解"></a>实解</h3><p><strong>测试用例,以有向图为例</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">6 8
-0 1 1
-0 3 4
-0 4 4
-1 3 2
-2 5 1
-3 2 2
-3 4 3
-4 5 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+                <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1003">P1003 [NOIP2011 提高组] 铺地毯</a><br><strong>脑子短路了，倒着检索就行了，第一次写的时候还用了map+pair。。。。</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;
-#define INF 10000
-#define MAXN 1010
+#define INF 10005
 using namespace std;
-int n, m;
-int dis[MAXN][MAXN];
-void Flody() &#123;
-	for (int k &#x3D; 0; k &lt; n; ++k) &#123;
-		for (int i &#x3D; 0; i &lt; n; ++i) &#123;
-			for (int j &#x3D; 0; j &lt; n; ++j) &#123;
-				if (dis[i][k] !&#x3D; INF &amp;&amp; dis[k][j] !&#x3D; INF &amp;&amp; dis[i][k] + dis[k][j] &lt; dis[i][j]) &#123;
-					dis[i][j] &#x3D; dis[i][k] + dis[k][j];
+struct pad &#123;
+	int x;
+	int y;
+	int length;
+	int height;
+&#125;;
+int n, s1, s2;
+pad ipad[INF];
+int main() &#123;
+	cin &gt;&gt; n;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; ++i) &#123;
+		cin &gt;&gt; ipad[i].x &gt;&gt; ipad[i].y &gt;&gt; ipad[i].length &gt;&gt; ipad[i].height;
+	&#125;
+	cin &gt;&gt; s1 &gt;&gt; s2;
+	for (int i &#x3D; n; i &gt;&#x3D; 0; --i) &#123;
+		if (s1 &gt;&#x3D; ipad[i].x &amp;&amp; s1 &lt;&#x3D; ipad[i].x + ipad[i].length &amp;&amp; s2 &gt;&#x3D; ipad[i].y &amp;&amp; s2 &lt;&#x3D; ipad[i].y + ipad[i].height) &#123;
+			cout&lt;&lt;i;
+			return 0;
+		&#125;
+	&#125;
+	cout&lt;&lt;-1;
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1328">P1328 [NOIP2014 提高组] 生活大爆炸版石头剪刀布</a><br><strong>第一遍写的时候没想到什么优化的写法，就把所有胜负情况都用map表示出来了，然后遍历求分数就可</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+int count1 &#x3D; 0, count2 &#x3D; 0;
+int n, l1, l2;
+map&lt;pair&lt;int, int&gt;, int&gt; mp;
+int main() &#123;
+	&#x2F;&#x2F;0是输，1是平，2是赢
+	&#x2F;&#x2F;剪刀
+	mp[ &#123;0, 0&#125;] &#x3D; 1;
+	mp[ &#123;0, 1&#125;] &#x3D; 0;
+	mp[ &#123;0, 2&#125;] &#x3D; 2;
+	mp[ &#123;0, 3&#125;] &#x3D; 2;
+	mp[ &#123;0, 4&#125;] &#x3D; 0;
+	&#x2F;&#x2F;石头
+	mp[ &#123;1, 0&#125;] &#x3D; 2;
+	mp[ &#123;1, 1&#125;] &#x3D; 1;
+	mp[ &#123;1, 2&#125;] &#x3D; 0;
+	mp[ &#123;1, 3&#125;] &#x3D; 2;
+	mp[ &#123;1, 4&#125;] &#x3D; 0;
+	&#x2F;&#x2F;布
+	mp[ &#123;2, 0&#125;] &#x3D; 0;
+	mp[ &#123;2, 1&#125;] &#x3D; 2;
+	mp[ &#123;2, 2&#125;] &#x3D; 1;
+	mp[ &#123;2, 3&#125;] &#x3D; 0;
+	mp[ &#123;2, 4&#125;] &#x3D; 2;
+	&#x2F;&#x2F;蜥蜴人
+	mp[ &#123;3, 0&#125;] &#x3D; 0;
+	mp[ &#123;3, 1&#125;] &#x3D; 0;
+	mp[ &#123;3, 2&#125;] &#x3D; 2;
+	mp[ &#123;3, 3&#125;] &#x3D; 1;
+	mp[ &#123;3, 4&#125;] &#x3D; 2;
+	&#x2F;&#x2F;斯波克
+	mp[ &#123;4, 0&#125;] &#x3D; 2;
+	mp[ &#123;4, 1&#125;] &#x3D; 2;
+	mp[ &#123;4, 2&#125;] &#x3D; 0;
+	mp[ &#123;4, 3&#125;] &#x3D; 0;
+	mp[ &#123;4, 4&#125;] &#x3D; 1;
+	cin &gt;&gt; n &gt;&gt; l1 &gt;&gt; l2;
+	int a[1000];
+	int b[1000];
+	for (int i &#x3D; 1; i &lt;&#x3D; l1; ++i) &#123;
+		cin &gt;&gt; a[i];
+	&#125;
+	for (int i &#x3D; 1; i &lt;&#x3D; l2; ++i) &#123;
+		cin &gt;&gt; b[i];
+	&#125;
+	int s&#x3D;1,d&#x3D;1;
+	for(int i &#x3D; 1;i&lt;&#x3D;n;++i)&#123;
+		if(mp[&#123;a[s],b[d]&#125;]&#x3D;&#x3D;1)&#123;
+			count1+&#x3D;0;
+			count2+&#x3D;0;
+		&#125;
+		else&#123;
+			if(mp[&#123;a[s],b[d]&#125;]&#x3D;&#x3D;0)&#123;
+				count2+&#x3D;1;
+			&#125;
+			else&#123;
+				if(mp[&#123;a[s],b[d]&#125;]&#x3D;&#x3D;2)&#123;
+					count1+&#x3D;1;
 				&#125;
 			&#125;
 		&#125;
-	&#125;
-&#125;
-int main() &#123;
-	int u, v, w;
-	fill(dis[0], dis[0] + MAXN * MAXN, INF);
-	cin &gt;&gt; n &gt;&gt; m;
-	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
-		dis[i][i] &#x3D; 0;
-	&#125;
-	for (int i &#x3D; 0; i &lt; m; ++i) &#123;
-		cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
-		dis[u][v] &#x3D; w; &#x2F;&#x2F;以有向图为例进行输入
-	&#125;
-	Flody();
-	for (int i &#x3D; 0; i &lt; n; ++i) &#123;
-		for (int j &#x3D; 0; j &lt; n; ++j) &#123;
-			if (dis[i][j] &gt;&#x3D; INF) &#123;
-				cout &lt;&lt; &quot;X &quot;;&#x2F;&#x2F;X表示俩点无法互相抵达
-			&#125; else &#123;
-				cout &lt;&lt; dis[i][j] &lt;&lt; &quot; &quot;;
-			&#125;
+		if(i%l1&#x3D;&#x3D;0)&#123;
+			s&#x3D;1;
 		&#125;
-		cout &lt;&lt; endl;
+		else&#123;
+			s++;
+		&#125;
+		if(i%l2&#x3D;&#x3D;0)&#123;
+			d&#x3D;1;
+		&#125;
+		else&#123;
+			d++;
+		&#125;
 	&#125;
-	return 0;
-&#125;            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>期待输出</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">0 1 5 3 4 6
-X 0 4 2 5 5
-X X 0 X X 1
-X X 2 0 3 3
-X X X X 0 3
-X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>这里，给读者进行一个科普:如果一开始把图中所有点是否可达存成0-1矩阵,然后另外一个起始矩阵只有源点标一,两个矩阵乘一次后，每个点的数量就表示，从源点移动一步，到每个点的方案数,然后矩阵乘法又可以用快速幂加速,这就是我们耳熟能详的矩阵快速幂,本章节不做过多叙述，有兴趣的读者可以读阅本站&lt;矩阵快速幂&gt;章节了解相关知识或者自行查阅资料</strong></p>
-
+	cout&lt;&lt;count1&lt;&lt;&quot; &quot;&lt;&lt;count2;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -676,7 +710,7 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/07/05/Floyd/">http://example.com/2022/07/05/Floyd/</a>
+                    <a href="http://example.com/2022/07/07/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/">http://example.com/2022/07/07/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -714,8 +748,8 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Algorithm/">
-                                    <span class="chip bg-color">Algorithm</span>
+                                <a href="/tags/Practise/">
+                                    <span class="chip bg-color">Practise</span>
                                 </a>
                             
                         </div>
@@ -893,13 +927,13 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">
+                <a href="/2022/07/07/R%E8%AF%9D%E8%8C%B6%E8%B0%88/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="算法杂谈-二分答案">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="R话茶谈">
                         
-                        <span class="card-title">算法杂谈-二分答案</span>
+                        <span class="card-title">R话茶谈</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -923,8 +957,8 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Algorithm/">
-                        <span class="chip bg-color">Algorithm</span>
+                    <a href="/tags/Share/">
+                        <span class="chip bg-color">Share</span>
                     </a>
                     
                 </div>
@@ -938,13 +972,13 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/05/Bellman-Ford%20and%20SPFA/">
+                <a href="/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="算法杂谈-Bellman-ford算法和SPFA算法">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="算法杂谈-二分答案">
                         
-                        <span class="card-title">算法杂谈-Bellman-ford算法和SPFA算法</span>
+                        <span class="card-title">算法杂谈-二分答案</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -955,7 +989,7 @@ X X X X X 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-07
                             </span>
                         <span class="publish-author">
                             
