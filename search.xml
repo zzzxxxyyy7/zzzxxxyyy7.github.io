@@ -42,25 +42,6 @@
     
     
     <entry>
-      <title>自主算法学习日记</title>
-      <link href="/2022/07/07/%E8%87%AA%E4%B8%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/"/>
-      <url>/2022/07/07/%E8%87%AA%E4%B8%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<h1 id="2022-x2F-7-x2F-10"><a href="#2022-x2F-7-x2F-10" class="headerlink" title="2022&#x2F;7&#x2F;10"></a>2022&#x2F;7&#x2F;10</h1><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序的工作原理是通过构建有序序列，对于未排序数据，<strong>在已排序序列中从后向前扫描</strong>，找到相应位置并插入(我喜欢交换)。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位(我喜欢交换)，为最新元素提供插入空间。<br><strong>图解插入排序</strong><br><img src="/./../img/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%9B%BE.png" alt="如图"><br><strong>逆序排序</strong></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;*插入排序的思想:把0到i-1和i-1划分成俩个部分前者是未排序的，后者是排好序的，往左依次排序*&#x2F;#include &lt;bits&#x2F;stdc++.h&gt;using namespace std;int main() &#123;int a[6] &#x3D; &#123;31, 41, 59, 26, 41, 58&#125;;&#x2F;&#x2F;每次都从第二个元素开始排序,当然这是显然的,因为第一个元素没什么好排序的&#x2F;&#x2F;逆序插入排序for (int i &#x3D; 4; i &gt;&#x3D; 0; --i) &#123;&#x2F;&#x2F;每次都与前一个元素对比int j &#x3D; i + 1;while (a[i] &lt; a[j]&amp;&amp;i&lt;5) &#123;swap(a[j], a[i]);i++;j++;&#125;&#125;for (int i &#x3D; 0; i &lt; 6; ++i) &#123;cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;&#125;cout&lt;&lt;endl;int x &#x3D; 2;cout&lt;&lt;(x&lt;&lt;2);return 0;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> Algorithm </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>经验分享-洛谷刷题日记</title>
       <link href="/2022/07/07/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/"/>
       <url>/2022/07/07/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB-%E6%B4%9B%E8%B0%B7%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/</url>
@@ -72,6 +53,25 @@
         <tags>
             
             <tag> Practise </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自主算法学习日记</title>
+      <link href="/2022/07/07/%E8%87%AA%E4%B8%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/"/>
+      <url>/2022/07/07/%E8%87%AA%E4%B8%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="2022-x2F-7-x2F-10"><a href="#2022-x2F-7-x2F-10" class="headerlink" title="2022&#x2F;7&#x2F;10"></a>2022&#x2F;7&#x2F;10</h1><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序的工作原理是通过构建有序序列，对于未排序数据，<strong>在已排序序列中从后向前扫描</strong>，找到相应位置并插入(我喜欢交换)。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位(我喜欢交换)，为最新元素提供插入空间。<br><strong>图解插入排序</strong><br><img src="/./../img/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%9B%BE.png" alt="如图"><br><strong>逆序排序</strong></p><pre class="line-numbers language-none"><code class="language-none">&#x2F;*插入排序的思想:把0到i-1和i-1划分成俩个部分前者是未排序的，后者是排好序的，往左依次排序*&#x2F;#include &lt;bits&#x2F;stdc++.h&gt;using namespace std;int main() &#123;int a[6] &#x3D; &#123;31, 41, 59, 26, 41, 58&#125;;&#x2F;&#x2F;每次都从第二个元素开始排序,当然这是显然的,因为第一个元素没什么好排序的&#x2F;&#x2F;逆序插入排序for (int i &#x3D; 4; i &gt;&#x3D; 0; --i) &#123;&#x2F;&#x2F;每次都与前一个元素对比int j &#x3D; i + 1;while (a[i] &lt; a[j]&amp;&amp;i&lt;5) &#123;swap(a[j], a[i]);i++;j++;&#125;&#125;for (int i &#x3D; 0; i &lt; 6; ++i) &#123;cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;&#125;cout&lt;&lt;endl;int x &#x3D; 2;cout&lt;&lt;(x&lt;&lt;2);return 0;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Algorithm </tag>
             
         </tags>
       
