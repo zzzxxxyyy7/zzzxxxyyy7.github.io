@@ -144,7 +144,7 @@
       <li>
         <a target="_blank" rel="noopener" href="https://www.bilibili.com/">
           
-          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
           
           <span>Bilibili</span>
         </a>
@@ -306,7 +306,7 @@
 
                   <a target="_blank" rel="noopener" href="https://www.bilibili.com/ " style="margin-left:50px">
 				  
-				   <i class="fa fas fa-image" style="position: absolute;left:28px" ></i>
+				   <i class="fa fas fa-book" style="position: absolute;left:28px" ></i>
 			      
 		          <span>Bilibili</span>
                   </a>
@@ -1335,6 +1335,14 @@ $(function () {
     
 
     <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
     
 
     <!-- 鼠标星星特效 -->
