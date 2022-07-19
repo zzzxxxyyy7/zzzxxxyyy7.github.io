@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>算法杂谈-并查集</title>
+      <link href="/2022/07/20/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <url>/2022/07/20/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E5%B9%B6%E6%9F%A5%E9%9B%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="并查集概论"><a href="#并查集概论" class="headerlink" title="并查集概论"></a>并查集概论</h2><p>定义：<br>并查集是一种树型的数据结构，用于处理一些不相交集合的合并及查询问题（即所谓的并、查）。比如说，我们可以用并查集来判断一个森林中有几棵树、某个节点是否属于某棵树等。</p><p>主要构成：<br>并查集主要由一个整型数组father[]和两个函数findFather()、union_two()构成。<br>数组 father[]记录了每个点的前驱节点是谁,函数findFather(x)用于查找指定节点x属于哪个集合,函数 、union_two(x,y)用于合并两个节点x和y。</p><h3 id="函数findFather-实现"><a href="#函数findFather-实现" class="headerlink" title="函数findFather()实现"></a>函数findFather()实现</h3><p><strong>C++代码</strong></p><pre class="line-numbers language-none"><code class="language-none">int findFather(int x) &#123;while (father[x] !&#x3D; x) &#123;x &#x3D; father[x];&#125;return x;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="函数union-two-实现"><a href="#函数union-two-实现" class="headerlink" title="函数union_two()实现"></a>函数union_two()实现</h3><p><strong>C++代码</strong></p><pre class="line-numbers language-none"><code class="language-none">void union_1(int x, int y) &#123;int FA &#x3D; findFather(x);int FB &#x3D; findFather(y);&#x2F;&#x2F;俩者不在同一集合内if (FA !&#x3D; FB) &#123;&#x2F;&#x2F;设置y的父亲结点为xfather[FB] &#x3D; FA;&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>前面介绍的findFather()实际上为我们提供了一个将不同节点进行合并的方法。通常情况下，我们可以结合着循环来将给定的大量数据合并成为若干个更大的集合（即并查集）.但是问题也随之产生,如果实现不知道谁是谁的前驱,那么这样就导致了最终的树状结构无法预计，即有可能是良好的n叉树,也有可能是单支树结构（一字长蛇形）,这种情况下，路径压缩就应运而生，下面我直接给出代码</strong></p><h3 id="路径压缩实现"><a href="#路径压缩实现" class="headerlink" title="路径压缩实现"></a>路径压缩实现</h3><pre class="line-numbers language-none"><code class="language-none">int findFather(int x) &#123;if (father[x] &#x3D;&#x3D; x) &#123;return x;&#125;return father[x] &#x3D; findFather(father[x]);&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>下面给出俩张例图来辅助解释</strong><br><img src="/./../img/%E5%B9%B6%E6%9F%A5%E9%9B%8601.png" alt="图一"><br><img src="/./../img/%E5%B9%B6%E6%9F%A5%E9%9B%8602.png" alt="图二"><br><strong>路径压缩的思想，就是将图一的数据结构改成图二的数据结构，这样就大大节省了查找时间，实现路径压缩的目的</strong></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>算法杂谈-二分答案</title>
       <link href="/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/"/>
       <url>/2022/07/07/%E7%AE%97%E6%B3%95%E6%9D%82%E8%B0%88-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/</url>
